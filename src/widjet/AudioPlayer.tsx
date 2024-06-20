@@ -1,24 +1,42 @@
+import { Icon16MoreVertical } from '@vkontakte/icons';
 import {
-  Avatar,
   Group,
   IconButton,
+  Image,
   SimpleCell,
-  usePlatform,
+  Tappable,
 } from '@vkontakte/vkui';
+import { FC } from 'react';
 
-interface ISong {}
+interface ISong {
+  title: string;
+  artist: string;
+  cover: string;
+  time: string;
+}
 
-export const AudioPlayer = ({ title, artist, cover, time }) => {
+export const AudioPlayer: FC<ISong> = ({ title, artist, cover, time }) => {
   return (
-    <Group>
-      <SimpleCell
-        after={<IconButton label="Обложка" onClick={() => {}}></IconButton>}
-        subtitle="Санкт-Петербург, Россия"
-        before={<Avatar size={32} />}
-        onClick={() => {}}
-      >
-        VK · Приложение для iPhone !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      </SimpleCell>
-    </Group>
+    <Tappable
+      onClick={() => console.log('песня играет')}
+      activeMode="background"
+      hasActive
+    >
+      <Group mode="plain">
+        <SimpleCell
+          after={
+            <IconButton label="Всплывающее меню" onClick={() => {}}>
+              <Icon16MoreVertical />
+            </IconButton>
+          }
+          subtitle={artist}
+          before={<Image size={40} src={cover} />}
+          onClick={() => {}}
+          indicator={time}
+        >
+          {title}
+        </SimpleCell>
+      </Group>
+    </Tappable>
   );
 };

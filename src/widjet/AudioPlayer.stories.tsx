@@ -24,9 +24,9 @@ const meta: Meta<typeof AudioPlayer> = {
         <AdaptivityProvider>
           <AppRoot>
             <SplitLayout>
-              <SplitCol width="100%">
+              <SplitCol width="360px">
                 <View activePanel="group">
-                  <Panel id="group">
+                  <Panel id="group" mode="plain">
                     <PanelHeader>Плеер</PanelHeader>
                     <Story />
                   </Panel>
@@ -38,6 +38,13 @@ const meta: Meta<typeof AudioPlayer> = {
       </ConfigProvider>
     ),
   ],
+  args: {
+    title: 'Back in Black',
+    artist: 'AC/DC',
+    cover:
+      'https://avatars.dzeninfra.ru/get-zen_doc/2408175/pub_5ea838828e079d5083ec827c_5ea85d5b9e714f47e1bfe961/scale_2400',
+    time: '3:23',
+  },
 } satisfies Meta<typeof AudioPlayer>;
 
 export default meta;
