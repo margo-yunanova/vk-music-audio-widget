@@ -16,8 +16,12 @@ export const PopoverWithAllTriggers: FC<IPopover> = ({ button, content }) => {
       aria-describedby="tooltip-3"
       content={
         <Div>
-          {content.map((item) => (
-            <CellButton onClick={() => {}} before={<Icon28AddOutline />}>
+          {content.map((item, i) => (
+            <CellButton
+              key={i}
+              onClick={() => {}}
+              before={<Icon28AddOutline />}
+            >
               {item}
             </CellButton>
           ))}

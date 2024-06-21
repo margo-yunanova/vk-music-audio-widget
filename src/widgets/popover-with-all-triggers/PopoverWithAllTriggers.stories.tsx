@@ -3,7 +3,7 @@ import { PopoverWithAllTriggers } from './PopoverWithAllTriggers';
 import { Icon16MoreVertical } from '@vkontakte/icons';
 
 const meta: Meta<typeof PopoverWithAllTriggers> = {
-  title: 'widjets/PopoverWithAllTriggers',
+  title: 'widgets/PopoverWithAllTriggers',
   component: PopoverWithAllTriggers,
   parameters: {
     layout: 'centered',

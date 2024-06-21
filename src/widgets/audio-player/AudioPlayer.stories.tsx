@@ -12,9 +12,10 @@ import {
 } from '@vkontakte/vkui';
 import { PopoverWithAllTriggers } from '../popover-with-all-triggers';
 import { Icon16MoreVertical } from '@vkontakte/icons';
+import song from '../../../public/el-gitano-del-amor.mp3';
 
 const meta: Meta<typeof AudioPlayer> = {
-  title: 'widjets/AudioPlayer',
+  title: 'widgets/AudioPlayer',
   component: AudioPlayer,
   parameters: {
     layout: 'centered',
@@ -45,7 +46,7 @@ const meta: Meta<typeof AudioPlayer> = {
     artist: 'AC/DC',
     cover:
       'https://avatars.dzeninfra.ru/get-zen_doc/2408175/pub_5ea838828e079d5083ec827c_5ea85d5b9e714f47e1bfe961/scale_2400',
-    time: '3:23',
+    // time: '3:23',
     button: (
       <PopoverWithAllTriggers
         content={['Скопировать ссылку', 'Поделится', 'Не нравится']}
@@ -60,5 +61,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  // ...
+  args: {
+    song,
+  },
 };
