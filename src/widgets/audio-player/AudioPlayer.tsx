@@ -1,3 +1,4 @@
+import { Icon20GraphOutline } from '@vkontakte/icons';
 import { Group, Image, SimpleCell, Tappable } from '@vkontakte/vkui';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import useSound from 'use-sound';
@@ -67,7 +68,18 @@ export const AudioPlayer: FC<ISong> = ({
         <SimpleCell
           after={button}
           subtitle={artist}
-          before={<Image size={40} src={cover} />}
+          before={
+            <Image size={40} src={cover}>
+              {isPlaying && (
+                <Image.Overlay
+                  aria-label="Кнопка для изображения"
+                  visibility="always"
+                >
+                  <Icon20GraphOutline />
+                </Image.Overlay>
+              )}
+            </Image>
+          }
           onClick={() => {}}
           indicator={`${currTime.min}:${currTime.sec}`}
         >
