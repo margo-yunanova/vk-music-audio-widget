@@ -1,0 +1,15 @@
+@keyframes equalizer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.image-equalizer {
+  animation-name: equalizer;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
