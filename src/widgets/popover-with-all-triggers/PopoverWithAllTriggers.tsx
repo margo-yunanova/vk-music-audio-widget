@@ -1,28 +1,23 @@
-import { Icon28AddOutline } from '@vkontakte/icons';
 import { Popover, Div, CellButton } from '@vkontakte/vkui';
 import { FC, ReactElement } from 'react';
 
-interface IPopover {
+export interface IPopover {
   button: ReactElement;
-  content: string[];
+  content: { title: string; icon: ReactElement }[];
 }
 
 export const PopoverWithAllTriggers: FC<IPopover> = ({ button, content }) => {
   return (
     <Popover
-      trigger={['click', 'hover', 'focus']}
+      trigger={['hover', 'focus']}
       placement="right"
       role="tooltip"
       aria-describedby="tooltip-3"
       content={
-        <Div>
+        <Div onClick={(e) => e.stopPropagation()}>
           {content.map((item, i) => (
-            <CellButton
-              key={i}
-              onClick={() => {}}
-              before={<Icon28AddOutline />}
-            >
-              {item}
+            <CellButton key={i} onClick={() => {}} before={item.icon}>
+              {item.title}
             </CellButton>
           ))}
         </Div>
