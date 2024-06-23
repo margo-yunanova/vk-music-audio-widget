@@ -57,8 +57,7 @@ export const Primary: Story = {
     id: 1,
     title: 'SoundHelix Song 1',
     artist: 'T. Schürger',
-    cover:
-      'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+    cover: cover0,
     src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     duration: 372,
   },
