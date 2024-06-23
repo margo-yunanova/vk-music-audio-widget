@@ -13,6 +13,9 @@ import { PopoverWithAllTriggers } from '../popover-with-all-triggers';
 import styles from './AudioPlayer.module.css';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
+const hasTouch =
+  'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
+
 export interface ISong {
   id: number;
   title: string;
@@ -119,8 +122,8 @@ export const AudioPlayer: FC<ISong> = ({
             </Image>
           }
           onClick={playingButton}
-          onMouseOver={() => setPlayerIsHovered(true)}
-          onMouseOut={() => setPlayerIsHovered(false)}
+          onMouseOver={hasTouch ? undefined : () => setPlayerIsHovered(true)}
+          onMouseOut={hasTouch ? undefined : () => setPlayerIsHovered(false)}
           indicator={formattedTime}
         >
           {title}
