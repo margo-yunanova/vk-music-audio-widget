@@ -52,7 +52,7 @@ export const Primary: Story = {
     artist: 'AC/DC',
     cover:
       'https://avatars.dzeninfra.ru/get-zen_doc/2408175/pub_5ea838828e079d5083ec827c_5ea85d5b9e714f47e1bfe961/scale_2400',
-    src,
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
     duration: 216,
   },
 };
