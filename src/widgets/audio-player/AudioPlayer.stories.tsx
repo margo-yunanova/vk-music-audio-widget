@@ -10,7 +10,6 @@ import {
   PanelHeader,
   View,
 } from '@vkontakte/vkui';
-import src from '../../../public/el-gitano-del-amor.mp3';
 
 const meta: Meta<typeof AudioPlayer> = {
   title: 'widgets/AudioPlayer',
