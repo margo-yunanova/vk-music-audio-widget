@@ -8,7 +8,7 @@ import {
   Icon20ThumbsDownOutline,
 } from '@vkontakte/icons';
 import { Group, Image, SimpleCell, Tappable } from '@vkontakte/vkui';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { PopoverWithAllTriggers } from '../popover-with-all-triggers';
 import styles from './AudioPlayer.module.css';
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
@@ -23,6 +23,7 @@ export interface ISong {
   cover: string;
   duration: number;
   src: string;
+  stopOnUnmount?: boolean;
 }
 
 export const AudioPlayer: FC<ISong> = ({
@@ -31,6 +32,7 @@ export const AudioPlayer: FC<ISong> = ({
   cover,
   src,
   duration,
+  stopOnUnmount = true,
 }) => {
   const [playerIsHovered, setPlayerIsHovered] = useState(false);
   const {
@@ -39,9 +41,12 @@ export const AudioPlayer: FC<ISong> = ({
     togglePlayPause,
     getPosition,
     src: currentPlayAudio,
+    stop,
+    paused,
   } = useGlobalAudioPlayer();
 
   const [currTime, setCurrTime] = useState(duration);
+  const onUnmount = useRef<typeof stop | undefined>();
 
   const formattedSec = Math.floor(currTime % 60)
     .toString()
@@ -49,6 +54,8 @@ export const AudioPlayer: FC<ISong> = ({
   const formattedTime = `${Math.floor(currTime / 60)}:${formattedSec}`;
 
   const isCurrentTrack = src === currentPlayAudio;
+  onUnmount.current = stopOnUnmount && isCurrentTrack ? stop : undefined;
+
   const playingButton = () => {
     if (!isCurrentTrack) {
       load(src, {
@@ -87,6 +94,12 @@ export const AudioPlayer: FC<ISong> = ({
     return () => clearInterval(interval);
   }, [getPosition, isCurrentTrack, duration]);
 
+  useEffect(() => {
+    return () => {
+      onUnmount.current?.();
+    };
+  }, []);
+
   return (
     <Tappable activeMode="background">
       <Group mode="plain">
@@ -111,7 +124,7 @@ export const AudioPlayer: FC<ISong> = ({
                   <Icon20PauseCircle />
                 </Image.Overlay>
               )}
-              {!isCurrentTrack && (
+              {(!isCurrentTrack || paused) && (
                 <Image.Overlay
                   aria-label="Кнопка Играть"
                   visibility={playerIsHovered ? 'always' : 'on-hover'}
