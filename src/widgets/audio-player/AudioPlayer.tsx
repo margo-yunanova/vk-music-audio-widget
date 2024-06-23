@@ -2,6 +2,7 @@ import { Icon20GraphOutline } from '@vkontakte/icons';
 import { Group, Image, SimpleCell, Tappable } from '@vkontakte/vkui';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import useSound from 'use-sound';
+import styles from './AudioPlayer.module.css';
 
 export interface ISong {
   title: string;
@@ -20,7 +21,7 @@ export const AudioPlayer: FC<ISong> = ({
   song,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [play, { pause, duration, sound }] = useSound(song);
+  const [playerIsHovered, setPlayerIsHovered] = useState(false);
 
   const [currTime, setCurrTime] = useState({
     min: 0,
@@ -72,16 +73,32 @@ export const AudioPlayer: FC<ISong> = ({
             <Image size={40} src={cover}>
               {isPlaying && (
                 <Image.Overlay
-                  aria-label="Кнопка для изображения"
+                  aria-label="Изображение эквалайзера"
                   visibility="always"
                 >
-                  <Icon20GraphOutline />
+                  <Icon20GraphOutline className={styles['image-equalizer']} />
+                </Image.Overlay>
+              )}
+              {isPlaying && (
+                <Image.Overlay
+                  aria-label="Кнопка Пауза"
+                  visibility={playerIsHovered ? 'always' : 'on-hover'}
+                >
+                  <Icon20PauseCircle />
+                </Image.Overlay>
+              )}
+              {!isPlaying && (
+                <Image.Overlay
+                  aria-label="Кнопка Играть"
+                  visibility={playerIsHovered ? 'always' : 'on-hover'}
+                >
+                  <Icon20PlayCircle />
                 </Image.Overlay>
               )}
             </Image>
           }
-          onClick={() => {}}
-          indicator={`${currTime.min}:${currTime.sec}`}
+          onMouseOver={() => setPlayerIsHovered(true)}
+          onMouseOut={() => setPlayerIsHovered(false)}
         >
           {title}
         </SimpleCell>
