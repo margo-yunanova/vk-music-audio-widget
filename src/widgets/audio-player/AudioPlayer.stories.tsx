@@ -10,9 +10,14 @@ import {
   PanelHeader,
   View,
 } from '@vkontakte/vkui';
+import thunder from '../../../public/thunder-very-close-rain-a.wav';
 import whipCrack from '../../../public/whip-crack-01.wav';
 import cartoonPop from '../../../public/cartoon-pop-clean.flac';
 import bubblePop from '../../../public/bubble-pop.wav';
+import cover0 from '../../../public/thunder.png';
+import cover1 from '../../../public/audiobook_2083134.png';
+import cover2 from '../../../public/disc-jockey_2758739.png';
+import cover3 from '../../../public/disc-jockey_5295055.png';
 
 const meta: Meta<typeof AudioPlayer> = {
   title: 'widgets/AudioPlayer',
@@ -63,11 +68,18 @@ export const MultipleAudioPlayersWithSoundEffects: Story = {
   render: () => {
     const songs = [
       {
+        id: 0,
+        title: 'Thunder, Very Close, Rain',
+        artist: 'InspectorJ',
+        cover: cover0,
+        src: thunder,
+        duration: 13,
+      },
+      {
         id: 1,
         title: 'Whip Crack',
         artist: 'T. CGEffex',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover1,
         src: whipCrack,
         duration: 1,
       },
@@ -75,8 +87,7 @@ export const MultipleAudioPlayersWithSoundEffects: Story = {
         id: 2,
         title: 'Cartoon Pop',
         artist: 'unfa',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover2,
         src: cartoonPop,
         duration: 1,
       },
@@ -84,8 +95,7 @@ export const MultipleAudioPlayersWithSoundEffects: Story = {
         id: 3,
         title: 'Bubble Pop',
         artist: 'elmasmalo1',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover3,
         src: bubblePop,
         duration: 1,
       },
@@ -107,8 +117,7 @@ export const MultipleAudioPlayersWithLongSongs: Story = {
         id: 1,
         title: 'SoundHelix Song 1',
         artist: 'T. Schürger',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover1,
         src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
         duration: 372,
       },
@@ -116,8 +125,7 @@ export const MultipleAudioPlayersWithLongSongs: Story = {
         id: 2,
         title: 'SoundHelix Song 2',
         artist: 'T. Schürger',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover2,
         src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
         duration: 425,
       },
@@ -125,8 +133,7 @@ export const MultipleAudioPlayersWithLongSongs: Story = {
         id: 3,
         title: 'SoundHelix Song 3',
         artist: 'T. Schürger',
-        cover:
-          'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
+        cover: cover3,
         src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
         duration: 305,
       },

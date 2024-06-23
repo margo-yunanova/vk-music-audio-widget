@@ -23,7 +23,6 @@ export interface ISong {
 }
 
 export const AudioPlayer: FC<ISong> = ({
-  id,
   title,
   artist,
   cover,
@@ -101,7 +100,7 @@ export const AudioPlayer: FC<ISong> = ({
                   <Icon20GraphOutline className={styles['image-equalizer']} />
                 </Image.Overlay>
               )}
-              {playing && (
+              {playing && isCurrentTrack && (
                 <Image.Overlay
                   aria-label="Кнопка Пауза"
                   visibility={playerIsHovered ? 'always' : 'on-hover'}
@@ -109,7 +108,7 @@ export const AudioPlayer: FC<ISong> = ({
                   <Icon20PauseCircle />
                 </Image.Overlay>
               )}
-              {!playing && (
+              {!isCurrentTrack && (
                 <Image.Overlay
                   aria-label="Кнопка Играть"
                   visibility={playerIsHovered ? 'always' : 'on-hover'}
