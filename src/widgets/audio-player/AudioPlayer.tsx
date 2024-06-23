@@ -31,8 +31,13 @@ export const AudioPlayer: FC<ISong> = ({
   duration,
 }) => {
   const [playerIsHovered, setPlayerIsHovered] = useState(false);
-  const { load, playing, paused, togglePlayPause, getPosition } =
-    useGlobalAudioPlayer();
+  const {
+    load,
+    playing,
+    togglePlayPause,
+    getPosition,
+    src: currentPlayAudio,
+  } = useGlobalAudioPlayer();
 
   const [currTime, setCurrTime] = useState(duration);
 
@@ -41,8 +46,9 @@ export const AudioPlayer: FC<ISong> = ({
     .padStart(2, '0');
   const formattedTime = `${Math.floor(currTime / 60)}:${formattedSec}`;
 
+  const isCurrentTrack = src === currentPlayAudio;
   const playingButton = () => {
-    if (!paused && !playing) {
+    if (!isCurrentTrack) {
       load(src, {
         autoplay: true,
         html5: true,
@@ -70,12 +76,14 @@ export const AudioPlayer: FC<ISong> = ({
   useEffect(() => {
     const interval = setInterval(() => {
       const currentPosition = getPosition();
-      if (currentPosition > 0) {
+      if (currentPosition > 0 && isCurrentTrack) {
         setCurrTime(currentPosition);
+      } else {
+        setCurrTime(duration);
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [getPosition]);
+  }, [getPosition, isCurrentTrack, duration]);
 
   return (
     <Tappable activeMode="background">
@@ -85,7 +93,7 @@ export const AudioPlayer: FC<ISong> = ({
           subtitle={artist}
           before={
             <Image size={40} src={cover}>
-              {playing && (
+              {playing && isCurrentTrack && (
                 <Image.Overlay
                   aria-label="Изображение эквалайзера"
                   visibility="always"
