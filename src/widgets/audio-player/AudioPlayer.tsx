@@ -9,9 +9,9 @@ import {
 } from '@vkontakte/icons';
 import { Group, Image, SimpleCell, Tappable } from '@vkontakte/vkui';
 import { FC, useEffect, useMemo, useState } from 'react';
-import useSound from 'use-sound';
 import { PopoverWithAllTriggers } from '../popover-with-all-triggers';
 import styles from './AudioPlayer.module.css';
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 export interface ISong {
   id: number;
@@ -30,9 +30,9 @@ export const AudioPlayer: FC<ISong> = ({
   src,
   duration,
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [playerIsHovered, setPlayerIsHovered] = useState(false);
-  const [play, { pause, sound }] = useSound(src);
+  const { load, playing, paused, togglePlayPause, getPosition } =
+    useGlobalAudioPlayer();
 
   const [currTime, setCurrTime] = useState(duration);
 
@@ -42,13 +42,15 @@ export const AudioPlayer: FC<ISong> = ({
   const formattedTime = `${Math.floor(currTime / 60)}:${formattedSec}`;
 
   const playingButton = () => {
-    if (isPlaying) {
-      pause();
-      setIsPlaying(false);
-    } else {
-      play();
-      setIsPlaying(true);
+    if (!paused && !playing) {
+      load(src, {
+        autoplay: true,
+        html5: true,
+      });
+      return;
     }
+
+    togglePlayPause();
   };
 
   const button = useMemo(() => {
@@ -67,13 +69,13 @@ export const AudioPlayer: FC<ISong> = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const currentPosition = sound.seek([]);
+      const currentPosition = getPosition();
       if (currentPosition > 0) {
         setCurrTime(currentPosition);
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [sound]);
+  }, [getPosition]);
 
   return (
     <Tappable activeMode="background">
@@ -83,7 +85,7 @@ export const AudioPlayer: FC<ISong> = ({
           subtitle={artist}
           before={
             <Image size={40} src={cover}>
-              {isPlaying && (
+              {playing && (
                 <Image.Overlay
                   aria-label="Изображение эквалайзера"
                   visibility="always"
@@ -91,7 +93,7 @@ export const AudioPlayer: FC<ISong> = ({
                   <Icon20GraphOutline className={styles['image-equalizer']} />
                 </Image.Overlay>
               )}
-              {isPlaying && (
+              {playing && (
                 <Image.Overlay
                   aria-label="Кнопка Пауза"
                   visibility={playerIsHovered ? 'always' : 'on-hover'}
@@ -99,7 +101,7 @@ export const AudioPlayer: FC<ISong> = ({
                   <Icon20PauseCircle />
                 </Image.Overlay>
               )}
-              {!isPlaying && (
+              {!playing && (
                 <Image.Overlay
                   aria-label="Кнопка Играть"
                   visibility={playerIsHovered ? 'always' : 'on-hover'}

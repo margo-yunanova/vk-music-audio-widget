@@ -16,7 +16,7 @@
     "@vkontakte/vkui": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "use-sound": "^4.0.1"
+    "react-use-audio-player": "^2.2.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",

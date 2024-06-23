@@ -47,11 +47,11 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     id: 1,
-    title: 'Back in Black',
-    artist: 'AC/DC',
+    title: 'SoundHelix Song 1',
+    artist: 'T. Schürger',
     cover:
-      'https://avatars.dzeninfra.ru/get-zen_doc/2408175/pub_5ea838828e079d5083ec827c_5ea85d5b9e714f47e1bfe961/scale_2400',
+      'https://www.soundhelix.com/sites/default/files/SoundHelix-logo-medium.png',
     src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    duration: 216,
+    duration: 372,
   },
 };
